@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useProperties } from "../hooks/useProperties";
 import PropertyCard from "../../../components/PropertyCard";
-import { TextField, Slider, Typography, Box, CircularProgress } from "@mui/material";
+import { TextField, Slider, Typography, Box, CircularProgress, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const PropertyListPage: React.FC = () => {
     const { data: properties, isLoading } = useProperties();
     const [search, setSearch] = useState("");
     const [priceRange, setPriceRange] = useState<number[]>([0, 1000000]);
+    const navigate = useNavigate();
 
     if (isLoading) {
         return (
@@ -28,7 +30,14 @@ const PropertyListPage: React.FC = () => {
             <Typography variant="h4" mb={2}>
                 Propiedades
             </Typography>
-
+            <Button 
+                variant="contained" 
+                color="primary" 
+                sx={{ mb: 3 }}
+                onClick={() => navigate("/properties/register")}
+            >
+                Registrar Nueva Propiedad
+            </Button>
             <TextField
                 label="Buscar por nombre"
                 variant="outlined"

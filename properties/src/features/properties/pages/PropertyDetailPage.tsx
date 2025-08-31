@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPropertyById } from "../../../api/propertyApi";
-import { Box, Typography, Card, CardMedia, CircularProgress } from "@mui/material";
+import { Box, Typography, Card, CardMedia, CircularProgress, Button } from "@mui/material";
 
 const PropertyDetail: React.FC = () => {
     const { id } = useParams();
-
+    const navigate = useNavigate();
     const { data: property, isLoading } = useQuery({
         queryKey: ["property", id],
         queryFn: () => getPropertyById(id!),
@@ -30,6 +30,9 @@ const PropertyDetail: React.FC = () => {
 
     return (
         <Box sx={{ p: 4 }}>
+            <Button variant="contained" sx={{ mb: 2 }} onClick={() => navigate(-1)}>
+                Volver
+            </Button>
             <Card sx={{ mb: 4 }}>
                 {property.imageId && (
                     <CardMedia
